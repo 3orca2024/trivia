@@ -35,44 +35,40 @@
     .page { display:none; padding:20px; }
     .active { display:block; }
 
-    /* Character picker */
-    .picker {
-      display:flex;gap:12px;flex-wrap:wrap;
-    }
+    /* Picker */
+    .picker { display:flex;gap:12px;flex-wrap:wrap; }
     .card {
-      width:120px;
-      padding:8px;
-      border-radius:10px;
-      background:white;
-      text-align:center;
-      cursor:pointer;
-      border:2px solid transparent;
+      width:120px; padding:8px; border-radius:10px; background:white;
+      text-align:center; cursor:pointer; border:2px solid transparent;
       transition:.2s;
     }
     .card img { width:100px; height:100px; border-radius:8px; }
     .card:hover { border-color:#c56bdb; transform:translateY(-4px); }
+    .card.selected { border-color:#8a3d97; }
+
+    /* Flappy Game */
+    #gameCanvas {
+      border:2px solid #333;
+      background:linear-gradient(180deg,#aeefff,#fff);
+      display:block; margin-top:20px;
+    }
+    .startBtn { margin-top:10px;padding:8px 14px;border:none;
+      border-radius:6px;background:#c56bdb;color:white;font-weight:600;cursor:pointer; }
 
     /* Trivia */
     .question { font-weight:700; margin:12px 0; }
     .choices { display:flex;flex-direction:column;gap:6px; }
     .choices button {
-      padding:8px;
-      border:none;
-      border-radius:6px;
-      background:#eee;
-      cursor:pointer;
-      text-align:left;
+      padding:8px; border:none; border-radius:6px; background:#eee;
+      cursor:pointer; text-align:left;
     }
     .choices button.correct { background:#d1ffd1; }
     .choices button.wrong { background:#ffd1d1; }
 
-    /* Bio Page */
+    /* Bio */
     .bio-card {
-      background:white;
-      padding:20px;
-      border-radius:12px;
-      max-width:500px;
-      margin:auto;
+      background:white; padding:20px; border-radius:12px;
+      max-width:500px; margin:auto;
       box-shadow:0 4px 14px rgba(0,0,0,0.1);
     }
     .bio-card h2 { margin-top:0;color:#8a3d97; }
@@ -94,17 +90,9 @@
   <div id="games" class="page active">
     <h2>Character Picker 🎮</h2>
     <p>Select your Princess or Marvel hero for Flappy Dunk!</p>
-    <div class="picker" id="characterPicker">
-      <!-- Princesses -->
-      <div class="card"><img src="https://i.imgur.com/qe9Yz9C.png"><p>Elsa</p></div>
-      <div class="card"><img src="https://i.imgur.com/3jH9Zsz.png"><p>Jasmine</p></div>
-      <div class="card"><img src="https://i.imgur.com/Hz5gdlk.png"><p>Ariel</p></div>
-      <!-- Marvel -->
-      <div class="card"><img src="https://i.imgur.com/yCcdkwV.png"><p>Spider-Man</p></div>
-      <div class="card"><img src="https://i.imgur.com/7X4pP5x.png"><p>Iron Man</p></div>
-      <div class="card"><img src="https://i.imgur.com/FZ6yqT1.png"><p>Captain Marvel</p></div>
-    </div>
-    <p style="margin-top:20px;">(Flappy Dunk + Block Blast game code stays here – unchanged)</p>
+    <div class="picker" id="characterPicker"></div>
+    <button class="startBtn" onclick="startGame()">Start Flappy Dunk</button>
+    <canvas id="gameCanvas" width="400" height="500"></canvas>
   </div>
 
   <!-- Trivia Page -->
@@ -112,7 +100,6 @@
     <h2>Trivia Time ✨</h2>
     <button onclick="startTrivia('princess')">Play Princess Trivia 👑</button>
     <button onclick="startTrivia('marvel')">Play Marvel Trivia 🦸‍♀️</button>
-
     <div id="triviaGame" style="margin-top:20px;"></div>
   </div>
 
@@ -131,12 +118,95 @@
   </div>
 
 <script>
+  /* ---------- PAGE NAV ---------- */
   function showPage(id) {
     document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
     document.getElementById(id).classList.add('active');
   }
 
-  // Trivia Questions
+  /* ---------- CHARACTERS ---------- */
+  const characters = {
+    elsa: { name:"Elsa", img:"https://i.imgur.com/qe9Yz9C.png" },
+    jasmine: { name:"Jasmine", img:"https://i.imgur.com/3jH9Zsz.png" },
+    ariel: { name:"Ariel", img:"https://i.imgur.com/Hz5gdlk.png" },
+    spiderman: { name:"Spider-Man", img:"https://i.imgur.com/yCcdkwV.png" },
+    ironman: { name:"Iron Man", img:"https://i.imgur.com/7X4pP5x.png" },
+    captainmarvel: { name:"Captain Marvel", img:"https://i.imgur.com/FZ6yqT1.png" }
+  };
+  let currentCharacter = null;
+
+  const picker = document.getElementById("characterPicker");
+  for (let key in characters){
+    const c = characters[key];
+    const div = document.createElement("div");
+    div.className = "card";
+    div.innerHTML = `<img src="${c.img}"><p>${c.name}</p>`;
+    div.onclick = () => {
+      document.querySelectorAll(".card").forEach(card=>card.classList.remove("selected"));
+      div.classList.add("selected");
+      currentCharacter = c;
+    };
+    picker.appendChild(div);
+  }
+
+  /* ---------- FLAPPY GAME ---------- */
+  const canvas = document.getElementById("gameCanvas");
+  const ctx = canvas.getContext("2d");
+  let birdY, birdVel, pipes, score, gameInterval, gravity=0.5, lift=-8;
+
+  function startGame(){
+    if(!currentCharacter){ alert("Pick a character first!"); return; }
+    birdY = canvas.height/2;
+    birdVel = 0;
+    pipes = [];
+    score = 0;
+    if(gameInterval) clearInterval(gameInterval);
+    gameInterval = setInterval(updateGame, 20);
+  }
+
+  document.addEventListener("keydown",()=>{ birdVel = lift; });
+
+  function updateGame(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    // draw character
+    const img = new Image();
+    img.src = currentCharacter.img;
+    ctx.drawImage(img, 50, birdY, 40, 40);
+
+    birdVel += gravity;
+    birdY += birdVel;
+    if(birdY>canvas.height-40) endGame();
+
+    // pipes
+    if(Math.random()<0.02){
+      let gap = 120;
+      let topH = Math.random()*(canvas.height-gap-40)+20;
+      pipes.push({x:canvas.width,y:topH,gap:gap});
+    }
+    for(let i=0;i<pipes.length;i++){
+      let p = pipes[i];
+      p.x -= 2;
+      ctx.fillStyle="#4a2c6d";
+      ctx.fillRect(p.x,0,40,p.y);
+      ctx.fillRect(p.x,p.y+p.gap,40,canvas.height-p.y-p.gap);
+      if(p.x===48) score++;
+      // collision
+      if(50<p.x+40 && 50+40>p.x && (birdY< p.y || birdY+40>p.y+p.gap)){
+        endGame();
+      }
+    }
+    ctx.fillStyle="black";
+    ctx.fillText("Score: "+score,10,20);
+  }
+
+  function endGame(){
+    clearInterval(gameInterval);
+    ctx.fillStyle="red";
+    ctx.fillText("Game Over! Final Score: "+score,120,250);
+  }
+
+  /* ---------- TRIVIA ---------- */
   const triviaData = {
     princess: [
       {q:"Which princess has a pet tiger named Rajah?",choices:["Jasmine","Aurora","Moana"],answer:"Jasmine"},
@@ -150,35 +220,31 @@
     ]
   };
 
-  let currentTrivia = [];
-  let currentIndex = 0;
-
-  function startTrivia(type) {
+  let currentTrivia = [], currentIndex=0;
+  function startTrivia(type){
     currentTrivia = triviaData[type];
-    currentIndex = 0;
+    currentIndex=0;
     renderTrivia();
   }
-
-  function renderTrivia() {
-    if(currentIndex >= currentTrivia.length) {
-      document.getElementById("triviaGame").innerHTML =
-        "<h3>🎉 All done! You finished the quiz!</h3>";
+  function renderTrivia(){
+    if(currentIndex>=currentTrivia.length){
+      document.getElementById("triviaGame").innerHTML="<h3>🎉 All done!</h3>";
       return;
     }
-    const q = currentTrivia[currentIndex];
-    let html = `<div class="question">${q.q}</div><div class="choices">`;
+    const q=currentTrivia[currentIndex];
+    let html=`<div class="question">${q.q}</div><div class="choices">`;
     q.choices.forEach(c=>{
-      html += `<button onclick="checkAnswer(this,'${c}','${q.answer}')">${c}</button>`;
+      html+=`<button onclick="checkAnswer(this,'${c}','${q.answer}')">${c}</button>`;
     });
-    html += `</div>`;
-    document.getElementById("triviaGame").innerHTML = html;
+    html+=`</div>`;
+    document.getElementById("triviaGame").innerHTML=html;
   }
-
-  function checkAnswer(btn,choice,answer) {
-    if(choice===answer){ btn.classList.add("correct"); }
-    else { btn.classList.add("wrong"); }
+  function checkAnswer(btn,choice,answer){
+    if(choice===answer) btn.classList.add("correct");
+    else btn.classList.add("wrong");
     setTimeout(()=>{ currentIndex++; renderTrivia(); },800);
   }
 </script>
 </body>
 </html>
+
