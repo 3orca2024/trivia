@@ -31,7 +31,254 @@
       font-weight:600;
     }
     nav button:hover { background:#9f4bb7; }
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Princes Flap — Deluxe (Block Blast mode)</title>
+  <style>
+    :root{--bg1:#ffdff6;--bg2:#f3e6ff;--accent:#ff6aa6;--card:#fff;--muted:#6b2b50}
+    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial}
+    body{background:linear-gradient(180deg,var(--bg1),#fff);display:flex;align-items:center;justify-content:center;padding:18px}
+    .app{width:100%;max-width:1100px;background:rgba(255,255,255,0.95);border-radius:16px;padding:16px;box-shadow:0 12px 36px rgba(0,0,0,0.08)}
+    header{display:flex;align-items:center;justify-content:space-between}
+    h1{margin:0;color:var(--muted)}
+    .controls{display:flex;gap:12px;align-items:center}
 
+    /* picker */
+    .picker{display:flex;gap:12px;align-items:center;margin-top:12px;overflow:auto;padding:10px;border-radius:12px;background:linear-gradient(90deg,#fff,#fff0)}
+    .prin-card{width:96px;border-radius:10px;padding:6px;background:var(--card);border:2px solid transparent;cursor:pointer;flex:0 0 auto;text-align:center}
+    .prin-card img{width:80px;height:80px;object-fit:cover;border-radius:8px}
+    .prin-card.selected{transform:translateY(-8px);border-color:var(--accent);box-shadow:0 8px 20px rgba(255,106,166,0.16)}
+    .mode-switch{padding:8px 12px;border-radius:10px;background:linear-gradient(180deg,var(--accent),#ff3f8f);color:white;border:none}
+
+    .main{display:flex;gap:12px;margin-top:12px}
+    .left{flex:1}
+    .right{width:340px}
+
+    .game-area{position:relative;height:520px;border-radius:12px;overflow:hidden;background:linear-gradient(180deg,#ffeef9,#fff0)}
+    canvas{width:100%;height:100%;display:block}
+
+    .hud{position:absolute;left:12px;top:12px;background:#ffffffcc;padding:10px;border-radius:12px}
+    .hud .row{display:flex;gap:10px;align-items:center}
+
+    .instructions{background:linear-gradient(180deg,#fff,#fff0);padding:12px;border-radius:12px;border:1px solid #eee}
+    .instructions h3{margin-top:0}
+
+    .btn{padding:8px 10px;border-radius:8px;background:var(--accent);color:white;border:none;cursor:pointer}
+    .small{font-size:13px;color:#444}
+
+    footer{margin-top:12px;color:#8a6b8a}
+
+    /* Block Blast style elements */
+    .grid-wrap{background:#f8f6ff;border-radius:12px;padding:8px}
+    .mode-label{font-weight:700;color:#6b2b50}
+
+    @media (max-width:900px){.right{width:100%}.main{flex-direction:column}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>Princes Flap — Deluxe</h1>
+      <div class="controls">
+        <button id="modeBtn" class="mode-switch">Mode: Flap</button>
+        <div class="small">Site-ready for GitHub Pages</div>
+      </div>
+    </header>
+
+    <div class="picker" id="picker">
+      <!-- Realistic-looking placeholders. Replace with your own images in the repo for full realism. -->
+      <!-- Each card has data-image attribute with the URL. Swap to your hosted images. -->
+      <div class="prin-card" data-name="Ariel" data-image="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&q=80">
+        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80" alt="Ariel-like">
+        <div class="small">Ariel</div>
+      </div>
+      <div class="prin-card" data-name="Belle" data-image="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&q=80">
+        <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=200&q=80" alt="Belle-like">
+        <div class="small">Belle</div>
+      </div>
+      <div class="prin-card" data-name="Cinderella" data-image="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=800&q=80">
+        <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=200&q=80" alt="Cinderella-like">
+        <div class="small">Cinderella</div>
+      </div>
+      <div class="prin-card" data-name="Rapunzel" data-image="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800&q=80">
+        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=200&q=80" alt="Rapunzel-like">
+        <div class="small">Rapunzel</div>
+      </div>
+      <div class="prin-card" data-name="Mulan" data-image="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?w=800&q=80">
+        <img src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?w=200&q=80" alt="Mulan-like">
+        <div class="small">Mulan</div>
+      </div>
+      <div class="prin-card" data-name="Tiana" data-image="https://images.unsplash.com/photo-1524502190239-d5d6c91a5d4a?w=800&q=80">
+        <img src="https://images.unsplash.com/photo-1524502190239-d5d6c91a5d4a?w=200&q=80" alt="Tiana-like">
+        <div class="small">Tiana</div>
+      </div>
+      <div class="prin-card" data-name="Jasmine" data-image="https://images.unsplash.com/photo-1545996124-1d5d4b0e6d42?w=800&q=80">
+        <img src="https://images.unsplash.com/photo-1545996124-1d5d4b0e6d42?w=200&q=80" alt="Jasmine-like">
+        <div class="small">Jasmine</div>
+      </div>
+      <div class="prin-card" data-name="Elsa" data-image="https://images.unsplash.com/photo-1517849845537-4d257902454a?w=800&q=80">
+        <img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?w=200&q=80" alt="Elsa-like">
+        <div class="small">Elsa</div>
+      </div>
+    </div>
+
+    <div class="main">
+      <div class="left">
+        <div class="game-area" id="gameArea">
+          <canvas id="gameCanvas" width="900" height="520"></canvas>
+          <div class="hud" id="hud">
+            <div class="row"><strong id="selectedName">No princess</strong></div>
+            <div class="row"><div id="coins">Coins: 0</div><div style="width:12px"></div><div id="lives">Lives: 0</div></div>
+          </div>
+        </div>
+
+        <div style="margin-top:8px;display:flex;gap:8px;align-items:center">
+          <button id="startBtn" class="btn">Start</button>
+          <button id="resetBtn" class="btn" style="background:#aaa">Reset</button>
+          <div style="flex:1" class="small">Mode has both Flap & Block Blast — switch with the top button.</div>
+        </div>
+
+      </div>
+
+      <div class="right">
+        <div class="instructions">
+          <h3>Instructions</h3>
+          <ol>
+            <li>Pick a princess from the bar (click a portrait).</li>
+            <li>Click <strong>Start</strong> — wait for the countdown.</li>
+            <li>In <em>Flap</em> mode: click/tap to flap and avoid obstacles. Passing obstacles = coins.</li>
+            <li>In <em>Block Blast</em> mode: play a brick-breaker inspired minigame — click and drag to aim and launch blocks to clear the path.</li>
+            <li>At 30 coins you can buy lives. 15-coin rule applies (if you reach 15 and later fail you keep 5 coins).</li>
+            <li>Background changes at 50 / 100 / 150 coins.</li>
+          </ol>
+          <div style="height:8px"></div>
+          <div class="mode-label">Current mode: <span id="modeLabel">Flap</span></div>
+        </div>
+
+        <div style="height:12px"></div>
+        <div class="grid-wrap">
+          <div class="small">Block Blast preview — uses the same princess you picked. Drag the aiming bar in Block mode to launch a burst of blocks.</div>
+          <canvas id="blockCanvas" width="300" height="200" style="width:100%;height:140px;margin-top:8px;background:#fff;border-radius:8px"></canvas>
+          <div style="display:flex;gap:8px;align-items:center;margin-top:8px">
+            <button id="launchBtn" class="btn">Launch</button>
+            <button id="autoFill" class="btn" style="background:#8e6bff">Auto Fill</button>
+            <div class="small">Blocks cleared give bonus coins.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <footer>
+      <small>Drop this file as <code>index.html</code> into a GitHub Pages repo. Replace the portrait image URLs (data-image) with your own hosted images for the most realistic look.</small>
+    </footer>
+  </div>
+
+<script>
+/* Princes Flap — Deluxe: single-file game with Flap & Block Blast modes.
+   NOTES for you (Emilyp):
+   - Replace gallery image URLs (data-image) with your own high-res princess portraits hosted in the repo (e.g., /assets/ariel.jpg) for true realism.
+   - This file includes two canvas games: main Flap (left) and Block Blast (right). They share coin/life rules.
+*/
+
+const modeBtn = document.getElementById('modeBtn');
+const modeLabel = document.getElementById('modeLabel');
+let mode = 'flap'; // or 'block'
+modeBtn.addEventListener('click', ()=>{ mode = mode==='flap'?'block':'flap'; modeBtn.textContent = 'Mode: '+(mode==='flap'?'Flap':'Block Blast'); modeLabel.textContent = mode==='flap'?'Flap':'Block Blast'; });
+
+// Princess selection
+const cards = document.querySelectorAll('.prin-card');
+let selected = null;
+const selectedName = document.getElementById('selectedName');
+cards.forEach(card=>{
+  card.addEventListener('click', ()=>{
+    cards.forEach(c=>c.classList.remove('selected'));
+    card.classList.add('selected');
+    selected = {name: card.dataset.name, image: card.dataset.image};
+    selectedName.textContent = selected.name;
+    // set preview in both canvases (we'll sample later when drawing princess)
+  });
+});
+
+// Shared state
+let coins = 0, lives = 0, score = 0;
+const coinsEl = document.getElementById('coins'), livesEl = document.getElementById('lives');
+function updateHUD(){ coinsEl.textContent = `Coins: ${coins}`; livesEl.textContent = `Lives: ${lives}`; }
+updateHUD();
+
+// Main Flap game
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+const W = canvas.width, H = canvas.height;
+let p = {x: W*0.16, y: H/2, vy:0, img: null};
+let gravity = 0.9, flapPower = -12; let obstacles = []; let running=false; let frames=0;
+
+// load princess image if selected
+function loadPrincessImage(url, cb){ const img = new Image(); img.crossOrigin = 'anonymous'; img.onload = ()=>cb(img); img.onerror=()=>cb(null); img.src = url; }
+
+// pointer events
+canvas.addEventListener('pointerdown', (e)=>{ if(mode!=='flap') return; p.vy = flapPower; });
+
+function spawnObstacle(){ const h = 40 + Math.random()*120; const y = Math.random()*(H-140)+60; obstacles.push({x:W+40,y:y,w:50,h:h, speed:3 + Math.random()*2}); }
+
+function checkMilestones(){ const stage = coins>=150?3:coins>=100?2:coins>=50?1:0; document.body.style.background = stage===0? 'linear-gradient(180deg,#ffdff6,#fff)'
+: stage===1? 'linear-gradient(180deg,#fbefff,#efe8ff)'
+: stage===2? 'linear-gradient(90deg,#ff9a9e,#a1c4fd)'
+: 'linear-gradient(180deg,#ffdff6,#ffe5fb)'; }
+
+function resetAfterHit(){ if(lives>0){ lives--; updateHUD(); return; } if(coins>=15) coins = 5; else coins = 0; score = 0; updateHUD(); running=false; }
+
+function draw(){ frames++; // spawn
+ if(frames%Math.max(60,100-Math.floor(score/8))===0) spawnObstacle();
+ p.vy += gravity*0.6; p.y += p.vy; if(p.y>H-70){ p.y=H-70; p.vy=0 } if(p.y<30){ p.y=30; p.vy=0 }
+ // update obstacles
+ for(let i=obstacles.length-1;i>=0;i--){ obstacles[i].x -= obstacles[i].speed + Math.min(4,score/50); if(obstacles[i].x+obstacles[i].w < -20){ obstacles.splice(i,1); score++; coins++; updateHUD(); checkMilestones(); }}
+ // collisions
+ for(let ob of obstacles){ if(p.x+40 > ob.x && p.x < ob.x+ob.w && p.y+40 > ob.y && p.y < ob.y+ob.h){ resetAfterHit(); return; }}
+ // draw
+ ctx.clearRect(0,0,W,H);
+ // background handled by body style
+ // ground
+ ctx.fillStyle='rgba(255,255,255,0.8)'; ctx.fillRect(0,H-60,W,60);
+ // princess
+ ctx.save(); ctx.beginPath(); ctx.fillStyle='#fff'; ctx.arc(p.x,p.y,34,0,Math.PI*2); ctx.fill(); ctx.clip(); if(p.img) ctx.drawImage(p.img,p.x-32,p.y-32,64,64); else{ ctx.fillStyle='#7a1b5a'; ctx.font='30px serif'; ctx.textAlign='center'; ctx.fillText('👑',p.x,p.y+2);} ctx.restore();
+ // obstacles
+ ctx.fillStyle='#7a1b5a'; for(let ob of obstacles) ctx.fillRect(ob.x, ob.y, ob.w, ob.h);
+ // HUD text
+ ctx.fillStyle='#6b2b50'; ctx.font='16px sans-serif'; ctx.fillText(`Score: ${score}`, W-120, 26);
+ if(running) requestAnimationFrame(draw);
+}
+
+// start/reset
+const startBtn = document.getElementById('startBtn'), resetBtn = document.getElementById('resetBtn');
+startBtn.addEventListener('click', ()=>{
+  if(!selected){ alert('Pick a princess first!'); return; }
+  // load princess image then countdown
+  loadPrincessImage(selected.image, (img)=>{ p.img = img; p.y = H/2; p.vy=0; obstacles=[]; frames=0; running=true; // quick countdown
+    let cd=3; startBtn.disabled=true; startBtn.textContent='...'; const t = setInterval(()=>{ cd--; if(cd<=0){ clearInterval(t); startBtn.disabled=false; startBtn.textContent='Start'; draw(); }},700);
+  });
+});
+resetBtn.addEventListener('click', ()=>{ coins=0; lives=0; score=0; obstacles=[]; updateHUD(); checkMilestones(); });
+
+// Block Blast mini-game
+const blockCanvas = document.getElementById('blockCanvas'); const bctx = blockCanvas.getContext('2d'); const launchBtn = document.getElementById('launchBtn'); const autoFill = document.getElementById('autoFill');
+let blocks = [];
+function initBlocks(){ blocks = []; const cols = 7; const rows = 4; for(let r=0;r<rows;r++){ for(let c=0;c<cols;c++){ blocks.push({x:10+c*40,y:10+r*30,w:36,h:26, hp:1 + Math.floor(Math.random()*2)}); }} drawBlocks(); }
+function drawBlocks(){ bctx.clearRect(0,0,blockCanvas.width, blockCanvas.height); bctx.fillStyle='#fff'; bctx.fillRect(0,0,blockCanvas.width,blockCanvas.height); for(let bl of blocks){ bctx.fillStyle='#7a1b5a'; bctx.fillRect(bl.x, bl.y, bl.w, bl.h); bctx.fillStyle='#fff'; bctx.fillText(bl.hp, bl.x+bl.w/2-4, bl.y+bl.h/2+4); }}
+launchBtn.addEventListener('click', ()=>{ if(blocks.length===0) return; // simple simulation: reduce hp of front row
+  for(let i=0;i<blocks.length;i+=3){ blocks[i].hp--; if(blocks[i].hp<=0){ blocks.splice(i,1); i--; coins++; score+=2; updateHUD(); checkMilestones(); }} drawBlocks(); });
+autoFill.addEventListener('click', ()=>{ initBlocks(); });
+initBlocks();
+
+// coins persistence (optional)
+if(window.localStorage){ const s = localStorage.getItem('princes-flap:coins'); if(s) coins = parseInt(s); updateHUD(); window.addEventListener('beforeunload', ()=>{ localStorage.setItem('princes-flap:coins', coins); }); }
+
+</script>
+</body>
+</html>
     .page { display:none; padding:20px; }
     .active { display:block; }
 
