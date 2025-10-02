@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Parker's Princess & Marvel Hub</title>
+  <style>
+    body {
+      margin:0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(180deg, #d9b3ff, #ffe6f9);
+      color:#4a2c6d;
+    }
+    header {
+      background:#fff;
+      padding:12px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      border-bottom:2px solid #eee;
+    }
+    header h1 { margin:0; color:#8a3d97; }
+    nav button {
+      margin-left:8px;
+      padding:8px 12px;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+      background:#c56bdb;
+      color:white;
+      font-weight:600;
+    }
+    nav button:hover { background:#9f4bb7; }
+
+    .page { display:none; padding:20px; }
+    .active { display:block; }
+
+    /* Character picker */
+    .picker {
+      display:flex;gap:12px;flex-wrap:wrap;
+    }
+    .card {
+      width:120px;
+      padding:8px;
+      border-radius:10px;
+      background:white;
+      text-align:center;
+      cursor:pointer;
+      border:2px solid transparent;
+      transition:.2s;
+    }
+    .card img { width:100px; height:100px; border-radius:8px; }
+    .card:hover { border-color:#c56bdb; transform:translateY(-4px); }
+
+    /* Trivia */
+    .question { font-weight:700; margin:12px 0; }
+    .choices { display:flex;flex-direction:column;gap:6px; }
+    .choices button {
+      padding:8px;
+      border:none;
+      border-radius:6px;
+      background:#eee;
+      cursor:pointer;
+      text-align:left;
+    }
+    .choices button.correct { background:#d1ffd1; }
+    .choices button.wrong { background:#ffd1d1; }
+
+    /* Bio Page */
+    .bio-card {
+      background:white;
+      padding:20px;
+      border-radius:12px;
+      max-width:500px;
+      margin:auto;
+      box-shadow:0 4px 14px rgba(0,0,0,0.1);
+    }
+    .bio-card h2 { margin-top:0;color:#8a3d97; }
+    .bio-list { list-style:none;padding:0; }
+    .bio-list li { margin:8px 0; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Parker's Hub 👑🦸‍♂️</h1>
+    <nav>
+      <button onclick="showPage('games')">Games</button>
+      <button onclick="showPage('trivia')">Trivia</button>
+      <button onclick="showPage('bio')">Bio</button>
+    </nav>
+  </header>
+
+  <!-- Games Page -->
+  <div id="games" class="page active">
+    <h2>Character Picker 🎮</h2>
+    <p>Select your Princess or Marvel hero for Flappy Dunk!</p>
+    <div class="picker" id="characterPicker">
+      <!-- Princesses -->
+      <div class="card"><img src="https://i.imgur.com/qe9Yz9C.png"><p>Elsa</p></div>
+      <div class="card"><img src="https://i.imgur.com/3jH9Zsz.png"><p>Jasmine</p></div>
+      <div class="card"><img src="https://i.imgur.com/Hz5gdlk.png"><p>Ariel</p></div>
+      <!-- Marvel -->
+      <div class="card"><img src="https://i.imgur.com/yCcdkwV.png"><p>Spider-Man</p></div>
+      <div class="card"><img src="https://i.imgur.com/7X4pP5x.png"><p>Iron Man</p></div>
+      <div class="card"><img src="https://i.imgur.com/FZ6yqT1.png"><p>Captain Marvel</p></div>
+    </div>
+    <p style="margin-top:20px;">(Flappy Dunk + Block Blast game code stays here – unchanged)</p>
+  </div>
+
+  <!-- Trivia Page -->
+  <div id="trivia" class="page">
+    <h2>Trivia Time ✨</h2>
+    <button onclick="startTrivia('princess')">Play Princess Trivia 👑</button>
+    <button onclick="startTrivia('marvel')">Play Marvel Trivia 🦸‍♀️</button>
+
+    <div id="triviaGame" style="margin-top:20px;"></div>
+  </div>
+
+  <!-- Bio Page -->
+  <div id="bio" class="page">
+    <div class="bio-card">
+      <h2>About Parker 💜</h2>
+      <ul class="bio-list">
+        <li>✨ Favorite color: Purple</li>
+        <li>🧗 Favorite sport: Rock climbing</li>
+        <li>👭 One younger sister</li>
+        <li>🐶 Dog named Orca</li>
+        <li>🎂 Birthday: March 18</li>
+      </ul>
+    </div>
+  </div>
+
+<script>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  // Trivia Questions
+  const triviaData = {
+    princess: [
+      {q:"Which princess has a pet tiger named Rajah?",choices:["Jasmine","Aurora","Moana"],answer:"Jasmine"},
+      {q:"Who sings 'Part of Your World'?",choices:["Belle","Ariel","Elsa"],answer:"Ariel"},
+      {q:"Which princess has ice powers?",choices:["Elsa","Rapunzel","Mulan"],answer:"Elsa"}
+    ],
+    marvel: [
+      {q:"Who is Iron Man's real identity?",choices:["Bruce Wayne","Tony Stark","Steve Rogers"],answer:"Tony Stark"},
+      {q:"Which hero says 'Wakanda Forever'?",choices:["Black Panther","Thor","Hulk"],answer:"Black Panther"},
+      {q:"Who is Spider-Man's Aunt?",choices:["Aunt May","Aunt June","Aunt Rose"],answer:"Aunt May"}
+    ]
+  };
+
+  let currentTrivia = [];
+  let currentIndex = 0;
+
+  function startTrivia(type) {
+    currentTrivia = triviaData[type];
+    currentIndex = 0;
+    renderTrivia();
+  }
+
+  function renderTrivia() {
+    if(currentIndex >= currentTrivia.length) {
+      document.getElementById("triviaGame").innerHTML =
+        "<h3>🎉 All done! You finished the quiz!</h3>";
+      return;
+    }
+    const q = currentTrivia[currentIndex];
+    let html = `<div class="question">${q.q}</div><div class="choices">`;
+    q.choices.forEach(c=>{
+      html += `<button onclick="checkAnswer(this,'${c}','${q.answer}')">${c}</button>`;
+    });
+    html += `</div>`;
+    document.getElementById("triviaGame").innerHTML = html;
+  }
+
+  function checkAnswer(btn,choice,answer) {
+    if(choice===answer){ btn.classList.add("correct"); }
+    else { btn.classList.add("wrong"); }
+    setTimeout(()=>{ currentIndex++; renderTrivia(); },800);
+  }
+</script>
+</body>
+</html>
