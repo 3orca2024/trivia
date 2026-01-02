@@ -1,497 +1,144 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Parker's Princess & Marvel Hub</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sephora Gift Card Ideas ✨</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
     body {
-      margin:0;
-      font-family: "Poppins", sans-serif;
-      background: linear-gradient(180deg, #d9b3ff, #ffe6f9);
-      color:#4a2c6d;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ffe4f0, #fff7fb);
+      color: #333;
+      transition: background 0.6s ease;
     }
-    header {
-      background:#fff;
-      padding:12px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      border-bottom:2px solid #eee;
-    }
-    header h1 { margin:0; color:#8a3d97; }
+    header { text-align: center; padding: 2.5rem 1rem; }
+    header h1 { font-size: 2.8rem; color: #d63384; margin-bottom: 0.3rem; }
+    nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; }
     nav button {
-      margin-left:8px;
-      padding:8px 12px;
-      border:none;
-      border-radius:8px;
-      cursor:pointer;
-      background:#c56bdb;
-      color:white;
-      font-weight:600;
+      background: white; border: 2px solid #ffb3d9; border-radius: 999px;
+      padding: 0.6rem 1.4rem; cursor: pointer; transition: 0.25s;
     }
-    nav button:hover { background:#9f4bb7; }
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Princes Flap — Deluxe (Block Blast mode)</title>
-  <style>
-    :root{--bg1:#ffdff6;--bg2:#f3e6ff;--accent:#ff6aa6;--card:#fff;--muted:#6b2b50}
-    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial}
-    body{background:linear-gradient(180deg,var(--bg1),#fff);display:flex;align-items:center;justify-content:center;padding:18px}
-    .app{width:100%;max-width:1100px;background:rgba(255,255,255,0.95);border-radius:16px;padding:16px;box-shadow:0 12px 36px rgba(0,0,0,0.08)}
-    header{display:flex;align-items:center;justify-content:space-between}
-    h1{margin:0;color:var(--muted)}
-    .controls{display:flex;gap:12px;align-items:center}
-
-    /* picker */
-    .picker{display:flex;gap:12px;align-items:center;margin-top:12px;overflow:auto;padding:10px;border-radius:12px;background:linear-gradient(90deg,#fff,#fff0)}
-    .prin-card{width:96px;border-radius:10px;padding:6px;background:var(--card);border:2px solid transparent;cursor:pointer;flex:0 0 auto;text-align:center}
-    .prin-card img{width:80px;height:80px;object-fit:cover;border-radius:8px}
-    .prin-card.selected{transform:translateY(-8px);border-color:var(--accent);box-shadow:0 8px 20px rgba(255,106,166,0.16)}
-    .mode-switch{padding:8px 12px;border-radius:10px;background:linear-gradient(180deg,var(--accent),#ff3f8f);color:white;border:none}
-
-    .main{display:flex;gap:12px;margin-top:12px}
-    .left{flex:1}
-    .right{width:340px}
-
-    .game-area{position:relative;height:520px;border-radius:12px;overflow:hidden;background:linear-gradient(180deg,#ffeef9,#fff0)}
-    canvas{width:100%;height:100%;display:block}
-
-    .hud{position:absolute;left:12px;top:12px;background:#ffffffcc;padding:10px;border-radius:12px}
-    .hud .row{display:flex;gap:10px;align-items:center}
-
-    .instructions{background:linear-gradient(180deg,#fff,#fff0);padding:12px;border-radius:12px;border:1px solid #eee}
-    .instructions h3{margin-top:0}
-
-    .btn{padding:8px 10px;border-radius:8px;background:var(--accent);color:white;border:none;cursor:pointer}
-    .small{font-size:13px;color:#444}
-
-    footer{margin-top:12px;color:#8a6b8a}
-
-    /* Block Blast style elements */
-    .grid-wrap{background:#f8f6ff;border-radius:12px;padding:8px}
-    .mode-label{font-weight:700;color:#6b2b50}
-
-    @media (max-width:900px){.right{width:100%}.main{flex-direction:column}}
+    nav button:hover { background: #ffb3d9; color: white; transform: translateY(-2px); }
+    section { display: none; max-width: 900px; margin: auto; padding: 1.5rem; }
+    section.active { display: block; animation: fade 0.4s ease; }
+    @keyframes fade { from {opacity:0; transform:translateY(10px);} to {opacity:1;} }
+    .card { background:white; border-radius:20px; padding:1.5rem; box-shadow:0 10px 25px rgba(0,0,0,0.08); }
+    h2 { color:#d63384; margin-bottom: 1rem; }
+    .list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .item {
+      background: #fff7fb;
+      border-radius: 16px;
+      padding: 1rem;
+      text-align: center;
+    }
+    .price { font-weight: 600; color: #d63384; }
   </style>
 </head>
 <body>
-  <div class="app">
-    <header>
-      <h1>Princes Flap — Deluxe</h1>
-      <div class="controls">
-        <button id="modeBtn" class="mode-switch">Mode: Flap</button>
-        <div class="small">Site-ready for GitHub Pages</div>
-      </div>
-    </header>
 
-    <div class="picker" id="picker">
-      <!-- Realistic-looking placeholders. Replace with your own images in the repo for full realism. -->
-      <!-- Each card has data-image attribute with the URL. Swap to your hosted images. -->
-      <div class="prin-card" data-name="Ariel" data-image="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&q=80">
-        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80" alt="Ariel-like">
-        <div class="small">Ariel</div>
-      </div>
-      <div class="prin-card" data-name="Belle" data-image="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&q=80">
-        <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=200&q=80" alt="Belle-like">
-        <div class="small">Belle</div>
-      </div>
-      <div class="prin-card" data-name="Cinderella" data-image="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=800&q=80">
-        <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=200&q=80" alt="Cinderella-like">
-        <div class="small">Cinderella</div>
-      </div>
-      <div class="prin-card" data-name="Rapunzel" data-image="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800&q=80">
-        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=200&q=80" alt="Rapunzel-like">
-        <div class="small">Rapunzel</div>
-      </div>
-      <div class="prin-card" data-name="Mulan" data-image="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?w=800&q=80">
-        <img src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?w=200&q=80" alt="Mulan-like">
-        <div class="small">Mulan</div>
-      </div>
-      <div class="prin-card" data-name="Tiana" data-image="https://images.unsplash.com/photo-1524502190239-d5d6c91a5d4a?w=800&q=80">
-        <img src="https://images.unsplash.com/photo-1524502190239-d5d6c91a5d4a?w=200&q=80" alt="Tiana-like">
-        <div class="small">Tiana</div>
-      </div>
-      <div class="prin-card" data-name="Jasmine" data-image="https://images.unsplash.com/photo-1545996124-1d5d4b0e6d42?w=800&q=80">
-        <img src="https://images.unsplash.com/photo-1545996124-1d5d4b0e6d42?w=200&q=80" alt="Jasmine-like">
-        <div class="small">Jasmine</div>
-      </div>
-      <div class="prin-card" data-name="Elsa" data-image="https://images.unsplash.com/photo-1517849845537-4d257902454a?w=800&q=80">
-        <img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?w=200&q=80" alt="Elsa-like">
-        <div class="small">Elsa</div>
-      </div>
-    </div>
+<header>
+  <h1>Sephora ✨</h1>
+  <p>Gift card ideas by Parker Champlin</p>
+</header>
 
-    <div class="main">
-      <div class="left">
-        <div class="game-area" id="gameArea">
-          <canvas id="gameCanvas" width="900" height="520"></canvas>
-          <div class="hud" id="hud">
-            <div class="row"><strong id="selectedName">No princess</strong></div>
-            <div class="row"><div id="coins">Coins: 0</div><div style="width:12px"></div><div id="lives">Lives: 0</div></div>
-          </div>
-        </div>
+<nav>
+  <button onclick="showSection('season', 'season')">Gift Card Season</button>
+  <button onclick="showSection('25', '25')">$25 Ideas</button>
+  <button onclick="showSection('50', '50')">$50 Ideas</button>
+  <button onclick="showSection('75', '75')">$75 Ideas</button>
+</nav>
 
-        <div style="margin-top:8px;display:flex;gap:8px;align-items:center">
-          <button id="startBtn" class="btn">Start</button>
-          <button id="resetBtn" class="btn" style="background:#aaa">Reset</button>
-          <div style="flex:1" class="small">Mode has both Flap & Block Blast — switch with the top button.</div>
-        </div>
-
-      </div>
-
-      <div class="right">
-        <div class="instructions">
-          <h3>Instructions</h3>
-          <ol>
-            <li>Pick a princess from the bar (click a portrait).</li>
-            <li>Click <strong>Start</strong> — wait for the countdown.</li>
-            <li>In <em>Flap</em> mode: click/tap to flap and avoid obstacles. Passing obstacles = coins.</li>
-            <li>In <em>Block Blast</em> mode: play a brick-breaker inspired minigame — click and drag to aim and launch blocks to clear the path.</li>
-            <li>At 30 coins you can buy lives. 15-coin rule applies (if you reach 15 and later fail you keep 5 coins).</li>
-            <li>Background changes at 50 / 100 / 150 coins.</li>
-          </ol>
-          <div style="height:8px"></div>
-          <div class="mode-label">Current mode: <span id="modeLabel">Flap</span></div>
-        </div>
-
-        <div style="height:12px"></div>
-        <div class="grid-wrap">
-          <div class="small">Block Blast preview — uses the same princess you picked. Drag the aiming bar in Block mode to launch a burst of blocks.</div>
-          <canvas id="blockCanvas" width="300" height="200" style="width:100%;height:140px;margin-top:8px;background:#fff;border-radius:8px"></canvas>
-          <div style="display:flex;gap:8px;align-items:center;margin-top:8px">
-            <button id="launchBtn" class="btn">Launch</button>
-            <button id="autoFill" class="btn" style="background:#8e6bff">Auto Fill</button>
-            <div class="small">Blocks cleared give bonus coins.</div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <footer>
-      <small>Drop this file as <code>index.html</code> into a GitHub Pages repo. Replace the portrait image URLs (data-image) with your own hosted images for the most realistic look.</small>
-    </footer>
+<section id="season" class="active">
+  <div class="card">
+    <h2>Gift Card Season 🎁</h2>
+    <ul>
+      <li><strong>Christmas:</strong> usually from Aunt Janice every year</li>
+      <li><strong>Birthday:</strong> sometimes given if it is on my list</li>
+    </ul>
   </div>
+</section>
+
+<section id="25">
+  <div class="card">
+    <h2>$25 Gift Card Gets 💖</h2>
+    <div class="list">
+      <div class="item"><p>Summer Fridays Pink Guava</p><p class="price">$24</p></div>
+      <div class="item"><p>Mini Tower 28 Mascara</p><p class="price">$12</p></div>
+      <div class="item"><p>Rhode Gel Serum</p><p class="price">$20</p></div>
+      <div class="item"><p>Sol de Janeiro 62 Deodorant</p><p class="price">$18</p></div>
+      <div class="item"><p>Matcha Laneige</p><p class="price">$18</p></div>
+      <div class="item"><p>Touchland Pure Lavender</p><p class="price">$10</p></div>
+      <div class="item"><p>Glossier Rose Lip Balm</p><p class="price">$14</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="50">
+  <div class="card">
+    <h2>$50 Gift Card Gets 💄</h2>
+    <div class="list">
+      <div class="item"><p>Rhode Pineapple Cleanser</p><p class="price">$30</p></div>
+      <div class="item"><p>Amika Hydro Rush Hair Mask</p><p class="price">$44</p></div>
+      <div class="item"><p>Fenty Eye Cream</p><p class="price">$42</p></div>
+      <div class="item"><p>Glow Recipe Toner</p><p class="price">$38</p></div>
+      <div class="item"><p>Drunk Elephant Jelly Cleanser</p><p class="price">$36</p></div>
+      <div class="item"><p>Drunk Elephant Face Oil</p><p class="price">$42</p></div>
+      <div class="item"><p>Sol de Janeiro 87 (Big Size)</p><p class="price">$39</p></div>
+      <div class="item"><p>Tower 28 Redness Relief Serum</p><p class="price">$34</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="75">
+  <div class="card">
+    <h2>$75 Gift Card Gets ✨</h2>
+    <div class="list">
+      <div class="item"><p>Drunk Elephant Barrier Cream</p><p class="price">$65</p></div>
+      <div class="item"><p>Drunk Elephant Vitamin C Serum</p><p class="price">$79</p></div>
+      <div class="item"><p>Tower 28 Daily Facial Spray</p><p class="price">$68</p></div>
+      <div class="item"><p>Mini Rhode Kit</p><p class="price">$68</p></div>
+      <div class="item"><p>Ole Henriksen Glow Cycle Set</p><p class="price">$62</p></div>
+      <div class="item"><p>Gisou Gift Set</p><p class="price">$69</p></div>
+      <div class="item"><p>Tatcha Mini Set</p><p class="price">$65</p></div>
+    </div>
+  </div>
+</section>
 
 <script>
-/* Princes Flap — Deluxe: single-file game with Flap & Block Blast modes.
-   NOTES for you (Emilyp):
-   - Replace gallery image URLs (data-image) with your own high-res princess portraits hosted in the repo (e.g., /assets/ariel.jpg) for true realism.
-   - This file includes two canvas games: main Flap (left) and Block Blast (right). They share coin/life rules.
-*/
+  const backgrounds = {
+    season: `repeating-linear-gradient(45deg,
+      #ffe4f0,
+      #ffe4f0 20px,
+      #ffb3d9 20px,
+      #ffb3d9 40px
+    )`,
+    '25': `radial-gradient(circle at 20% 20%, #ffd6e8 2px, transparent 3px),
+           radial-gradient(circle at 80% 30%, #ff9ecb 2px, transparent 3px),
+           radial-gradient(circle at 50% 70%, #ffb3d9 2px, transparent 3px),
+           linear-gradient(135deg, #fff0f7, #ffe0ec)`,
+    '50': 'linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb)',
+    '75': `repeating-linear-gradient(135deg,
+      #e6fff7,
+      #e6fff7 30px,
+      #d9fff1 30px,
+      #d9fff1 60px
+    )`
+  };
 
-const modeBtn = document.getElementById('modeBtn');
-const modeLabel = document.getElementById('modeLabel');
-let mode = 'flap'; // or 'block'
-modeBtn.addEventListener('click', ()=>{ mode = mode==='flap'?'block':'flap'; modeBtn.textContent = 'Mode: '+(mode==='flap'?'Flap':'Block Blast'); modeLabel.textContent = mode==='flap'?'Flap':'Block Blast'; });
-
-// Princess selection
-const cards = document.querySelectorAll('.prin-card');
-let selected = null;
-const selectedName = document.getElementById('selectedName');
-cards.forEach(card=>{
-  card.addEventListener('click', ()=>{
-    cards.forEach(c=>c.classList.remove('selected'));
-    card.classList.add('selected');
-    selected = {name: card.dataset.name, image: card.dataset.image};
-    selectedName.textContent = selected.name;
-    // set preview in both canvases (we'll sample later when drawing princess)
-  });
-});
-
-// Shared state
-let coins = 0, lives = 0, score = 0;
-const coinsEl = document.getElementById('coins'), livesEl = document.getElementById('lives');
-function updateHUD(){ coinsEl.textContent = `Coins: ${coins}`; livesEl.textContent = `Lives: ${lives}`; }
-updateHUD();
-
-// Main Flap game
-const canvas = document.getElementById('gameCanvas');
-const ctx = canvas.getContext('2d');
-const W = canvas.width, H = canvas.height;
-let p = {x: W*0.16, y: H/2, vy:0, img: null};
-let gravity = 0.9, flapPower = -12; let obstacles = []; let running=false; let frames=0;
-
-// load princess image if selected
-function loadPrincessImage(url, cb){ const img = new Image(); img.crossOrigin = 'anonymous'; img.onload = ()=>cb(img); img.onerror=()=>cb(null); img.src = url; }
-
-// pointer events
-canvas.addEventListener('pointerdown', (e)=>{ if(mode!=='flap') return; p.vy = flapPower; });
-
-function spawnObstacle(){ const h = 40 + Math.random()*120; const y = Math.random()*(H-140)+60; obstacles.push({x:W+40,y:y,w:50,h:h, speed:3 + Math.random()*2}); }
-
-function checkMilestones(){ const stage = coins>=150?3:coins>=100?2:coins>=50?1:0; document.body.style.background = stage===0? 'linear-gradient(180deg,#ffdff6,#fff)'
-: stage===1? 'linear-gradient(180deg,#fbefff,#efe8ff)'
-: stage===2? 'linear-gradient(90deg,#ff9a9e,#a1c4fd)'
-: 'linear-gradient(180deg,#ffdff6,#ffe5fb)'; }
-
-function resetAfterHit(){ if(lives>0){ lives--; updateHUD(); return; } if(coins>=15) coins = 5; else coins = 0; score = 0; updateHUD(); running=false; }
-
-function draw(){ frames++; // spawn
- if(frames%Math.max(60,100-Math.floor(score/8))===0) spawnObstacle();
- p.vy += gravity*0.6; p.y += p.vy; if(p.y>H-70){ p.y=H-70; p.vy=0 } if(p.y<30){ p.y=30; p.vy=0 }
- // update obstacles
- for(let i=obstacles.length-1;i>=0;i--){ obstacles[i].x -= obstacles[i].speed + Math.min(4,score/50); if(obstacles[i].x+obstacles[i].w < -20){ obstacles.splice(i,1); score++; coins++; updateHUD(); checkMilestones(); }}
- // collisions
- for(let ob of obstacles){ if(p.x+40 > ob.x && p.x < ob.x+ob.w && p.y+40 > ob.y && p.y < ob.y+ob.h){ resetAfterHit(); return; }}
- // draw
- ctx.clearRect(0,0,W,H);
- // background handled by body style
- // ground
- ctx.fillStyle='rgba(255,255,255,0.8)'; ctx.fillRect(0,H-60,W,60);
- // princess
- ctx.save(); ctx.beginPath(); ctx.fillStyle='#fff'; ctx.arc(p.x,p.y,34,0,Math.PI*2); ctx.fill(); ctx.clip(); if(p.img) ctx.drawImage(p.img,p.x-32,p.y-32,64,64); else{ ctx.fillStyle='#7a1b5a'; ctx.font='30px serif'; ctx.textAlign='center'; ctx.fillText('👑',p.x,p.y+2);} ctx.restore();
- // obstacles
- ctx.fillStyle='#7a1b5a'; for(let ob of obstacles) ctx.fillRect(ob.x, ob.y, ob.w, ob.h);
- // HUD text
- ctx.fillStyle='#6b2b50'; ctx.font='16px sans-serif'; ctx.fillText(`Score: ${score}`, W-120, 26);
- if(running) requestAnimationFrame(draw);
-}
-
-// start/reset
-const startBtn = document.getElementById('startBtn'), resetBtn = document.getElementById('resetBtn');
-startBtn.addEventListener('click', ()=>{
-  if(!selected){ alert('Pick a princess first!'); return; }
-  // load princess image then countdown
-  loadPrincessImage(selected.image, (img)=>{ p.img = img; p.y = H/2; p.vy=0; obstacles=[]; frames=0; running=true; // quick countdown
-    let cd=3; startBtn.disabled=true; startBtn.textContent='...'; const t = setInterval(()=>{ cd--; if(cd<=0){ clearInterval(t); startBtn.disabled=false; startBtn.textContent='Start'; draw(); }},700);
-  });
-});
-resetBtn.addEventListener('click', ()=>{ coins=0; lives=0; score=0; obstacles=[]; updateHUD(); checkMilestones(); });
-
-// Block Blast mini-game
-const blockCanvas = document.getElementById('blockCanvas'); const bctx = blockCanvas.getContext('2d'); const launchBtn = document.getElementById('launchBtn'); const autoFill = document.getElementById('autoFill');
-let blocks = [];
-function initBlocks(){ blocks = []; const cols = 7; const rows = 4; for(let r=0;r<rows;r++){ for(let c=0;c<cols;c++){ blocks.push({x:10+c*40,y:10+r*30,w:36,h:26, hp:1 + Math.floor(Math.random()*2)}); }} drawBlocks(); }
-function drawBlocks(){ bctx.clearRect(0,0,blockCanvas.width, blockCanvas.height); bctx.fillStyle='#fff'; bctx.fillRect(0,0,blockCanvas.width,blockCanvas.height); for(let bl of blocks){ bctx.fillStyle='#7a1b5a'; bctx.fillRect(bl.x, bl.y, bl.w, bl.h); bctx.fillStyle='#fff'; bctx.fillText(bl.hp, bl.x+bl.w/2-4, bl.y+bl.h/2+4); }}
-launchBtn.addEventListener('click', ()=>{ if(blocks.length===0) return; // simple simulation: reduce hp of front row
-  for(let i=0;i<blocks.length;i+=3){ blocks[i].hp--; if(blocks[i].hp<=0){ blocks.splice(i,1); i--; coins++; score+=2; updateHUD(); checkMilestones(); }} drawBlocks(); });
-autoFill.addEventListener('click', ()=>{ initBlocks(); });
-initBlocks();
-
-// coins persistence (optional)
-if(window.localStorage){ const s = localStorage.getItem('princes-flap:coins'); if(s) coins = parseInt(s); updateHUD(); window.addEventListener('beforeunload', ()=>{ localStorage.setItem('princes-flap:coins', coins); }); }
-
-</script>
-</body>
-</html>
-    .page { display:none; padding:20px; }
-    .active { display:block; }
-
-    /* Picker */
-    .picker { display:flex;gap:12px;flex-wrap:wrap; }
-    .card {
-      width:120px; padding:8px; border-radius:10px; background:white;
-      text-align:center; cursor:pointer; border:2px solid transparent;
-      transition:.2s;
-    }
-    .card img { width:100px; height:100px; border-radius:8px; }
-    .card:hover { border-color:#c56bdb; transform:translateY(-4px); }
-    .card.selected { border-color:#8a3d97; }
-
-    /* Flappy Game */
-    #gameCanvas {
-      border:2px solid #333;
-      background:linear-gradient(180deg,#aeefff,#fff);
-      display:block; margin-top:20px;
-    }
-    .startBtn { margin-top:10px;padding:8px 14px;border:none;
-      border-radius:6px;background:#c56bdb;color:white;font-weight:600;cursor:pointer; }
-
-    /* Trivia */
-    .question { font-weight:700; margin:12px 0; }
-    .choices { display:flex;flex-direction:column;gap:6px; }
-    .choices button {
-      padding:8px; border:none; border-radius:6px; background:#eee;
-      cursor:pointer; text-align:left;
-    }
-    .choices button.correct { background:#d1ffd1; }
-    .choices button.wrong { background:#ffd1d1; }
-
-    /* Bio */
-    .bio-card {
-      background:white; padding:20px; border-radius:12px;
-      max-width:500px; margin:auto;
-      box-shadow:0 4px 14px rgba(0,0,0,0.1);
-    }
-    .bio-card h2 { margin-top:0;color:#8a3d97; }
-    .bio-list { list-style:none;padding:0; }
-    .bio-list li { margin:8px 0; }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>Parker's Hub 👑🦸‍♂️</h1>
-    <nav>
-      <button onclick="showPage('games')">Games</button>
-      <button onclick="showPage('trivia')">Trivia</button>
-      <button onclick="showPage('bio')">Bio</button>
-    </nav>
-  </header>
-
-  <!-- Games Page -->
-  <div id="games" class="page active">
-    <h2>Character Picker 🎮</h2>
-    <p>Select your Princess or Marvel hero for Flappy Dunk!</p>
-    <div class="picker" id="characterPicker"></div>
-    <button class="startBtn" onclick="startGame()">Start Flappy Dunk</button>
-    <canvas id="gameCanvas" width="400" height="500"></canvas>
-  </div>
-
-  <!-- Trivia Page -->
-  <div id="trivia" class="page">
-    <h2>Trivia Time ✨</h2>
-    <button onclick="startTrivia('princess')">Play Princess Trivia 👑</button>
-    <button onclick="startTrivia('marvel')">Play Marvel Trivia 🦸‍♀️</button>
-    <div id="triviaGame" style="margin-top:20px;"></div>
-  </div>
-
-  <!-- Bio Page -->
-  <div id="bio" class="page">
-    <div class="bio-card">
-      <h2>About Parker 💜</h2>
-      <ul class="bio-list">
-        <li>✨ Favorite color: Purple</li>
-        <li>🧗 Favorite sport: Rock climbing</li>
-        <li>👭 One younger sister</li>
-        <li>🐶 Dog named Orca</li>
-        <li>🎂 Birthday: March 18</li>
-      </ul>
-    </div>
-  </div>
-
-<script>
-  /* ---------- PAGE NAV ---------- */
-  function showPage(id) {
-    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  function showSection(id, bgKey){
+    document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
-  }
-
-  /* ---------- CHARACTERS ---------- */
-  const characters = {
-    elsa: { name:"Elsa", img:"https://i.imgur.com/qe9Yz9C.png" },
-    jasmine: { name:"Jasmine", img:"https://i.imgur.com/3jH9Zsz.png" },
-    ariel: { name:"Ariel", img:"https://i.imgur.com/Hz5gdlk.png" },
-    spiderman: { name:"Spider-Man", img:"https://i.imgur.com/yCcdkwV.png" },
-    ironman: { name:"Iron Man", img:"https://i.imgur.com/7X4pP5x.png" },
-    captainmarvel: { name:"Captain Marvel", img:"https://i.imgur.com/FZ6yqT1.png" }
-  };
-  let currentCharacter = null;
-
-  const picker = document.getElementById("characterPicker");
-  for (let key in characters){
-    const c = characters[key];
-    const div = document.createElement("div");
-    div.className = "card";
-    div.innerHTML = `<img src="${c.img}"><p>${c.name}</p>`;
-    div.onclick = () => {
-      document.querySelectorAll(".card").forEach(card=>card.classList.remove("selected"));
-      div.classList.add("selected");
-      currentCharacter = c;
-    };
-    picker.appendChild(div);
-  }
-
-  /* ---------- FLAPPY GAME ---------- */
-  const canvas = document.getElementById("gameCanvas");
-  const ctx = canvas.getContext("2d");
-  let birdY, birdVel, pipes, score, gameInterval, gravity=0.5, lift=-8;
-
-  function startGame(){
-    if(!currentCharacter){ alert("Pick a character first!"); return; }
-    birdY = canvas.height/2;
-    birdVel = 0;
-    pipes = [];
-    score = 0;
-    if(gameInterval) clearInterval(gameInterval);
-    gameInterval = setInterval(updateGame, 20);
-  }
-
-  document.addEventListener("keydown",()=>{ birdVel = lift; });
-
-  function updateGame(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-
-    // draw character
-    const img = new Image();
-    img.src = currentCharacter.img;
-    ctx.drawImage(img, 50, birdY, 40, 40);
-
-    birdVel += gravity;
-    birdY += birdVel;
-    if(birdY>canvas.height-40) endGame();
-
-    // pipes
-    if(Math.random()<0.02){
-      let gap = 120;
-      let topH = Math.random()*(canvas.height-gap-40)+20;
-      pipes.push({x:canvas.width,y:topH,gap:gap});
-    }
-    for(let i=0;i<pipes.length;i++){
-      let p = pipes[i];
-      p.x -= 2;
-      ctx.fillStyle="#4a2c6d";
-      ctx.fillRect(p.x,0,40,p.y);
-      ctx.fillRect(p.x,p.y+p.gap,40,canvas.height-p.y-p.gap);
-      if(p.x===48) score++;
-      // collision
-      if(50<p.x+40 && 50+40>p.x && (birdY< p.y || birdY+40>p.y+p.gap)){
-        endGame();
-      }
-    }
-    ctx.fillStyle="black";
-    ctx.fillText("Score: "+score,10,20);
-  }
-
-  function endGame(){
-    clearInterval(gameInterval);
-    ctx.fillStyle="red";
-    ctx.fillText("Game Over! Final Score: "+score,120,250);
-  }
-
-  /* ---------- TRIVIA ---------- */
-  const triviaData = {
-    princess: [
-      {q:"Which princess has a pet tiger named Rajah?",choices:["Jasmine","Aurora","Moana"],answer:"Jasmine"},
-      {q:"Who sings 'Part of Your World'?",choices:["Belle","Ariel","Elsa"],answer:"Ariel"},
-      {q:"Which princess has ice powers?",choices:["Elsa","Rapunzel","Mulan"],answer:"Elsa"}
-    ],
-    marvel: [
-      {q:"Who is Iron Man's real identity?",choices:["Bruce Wayne","Tony Stark","Steve Rogers"],answer:"Tony Stark"},
-      {q:"Which hero says 'Wakanda Forever'?",choices:["Black Panther","Thor","Hulk"],answer:"Black Panther"},
-      {q:"Who is Spider-Man's Aunt?",choices:["Aunt May","Aunt June","Aunt Rose"],answer:"Aunt May"}
-    ]
-  };
-
-  let currentTrivia = [], currentIndex=0;
-  function startTrivia(type){
-    currentTrivia = triviaData[type];
-    currentIndex=0;
-    renderTrivia();
-  }
-  function renderTrivia(){
-    if(currentIndex>=currentTrivia.length){
-      document.getElementById("triviaGame").innerHTML="<h3>🎉 All done!</h3>";
-      return;
-    }
-    const q=currentTrivia[currentIndex];
-    let html=`<div class="question">${q.q}</div><div class="choices">`;
-    q.choices.forEach(c=>{
-      html+=`<button onclick="checkAnswer(this,'${c}','${q.answer}')">${c}</button>`;
-    });
-    html+=`</div>`;
-    document.getElementById("triviaGame").innerHTML=html;
-  }
-  function checkAnswer(btn,choice,answer){
-    if(choice===answer) btn.classList.add("correct");
-    else btn.classList.add("wrong");
-    setTimeout(()=>{ currentIndex++; renderTrivia(); },800);
+    document.body.style.background = backgrounds[bgKey];
   }
 </script>
+
 </body>
 </html>
+ 
 
