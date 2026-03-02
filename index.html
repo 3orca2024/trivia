@@ -1,141 +1,371 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sephora Gift Card Ideas ✨</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #ffe4f0, #fff7fb);
-      color: #333;
-      transition: background 0.6s ease;
-    }
-    header { text-align: center; padding: 2.5rem 1rem; }
-    header h1 { font-size: 2.8rem; color: #d63384; margin-bottom: 0.3rem; }
-    nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; }
-    nav button {
-      background: white; border: 2px solid #ffb3d9; border-radius: 999px;
-      padding: 0.6rem 1.4rem; cursor: pointer; transition: 0.25s;
-    }
-    nav button:hover { background: #ffb3d9; color: white; transform: translateY(-2px); }
-    section { display: none; max-width: 900px; margin: auto; padding: 1.5rem; }
-    section.active { display: block; animation: fade 0.4s ease; }
-    @keyframes fade { from {opacity:0; transform:translateY(10px);} to {opacity:1;} }
-    .card { background:white; border-radius:20px; padding:1.5rem; box-shadow:0 10px 25px rgba(0,0,0,0.08); }
-    h2 { color:#d63384; margin-bottom: 1rem; }
-    .list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1rem;
-    }
-    .item {
-      background: #fff7fb;
-      border-radius: 16px;
-      padding: 1rem;
-      text-align: center;
-    }
-    .price { font-weight: 600; color: #d63384; }
-  </style>
+<title>Biology Study Tool</title>
+
+<style>
+
+body{
+font-family: Arial;
+background:#f4f6fb;
+text-align:center;
+margin:0;
+}
+
+header{
+background:#3f51b5;
+color:white;
+padding:20px;
+font-size:28px;
+}
+
+nav{
+background:#222;
+padding:10px;
+}
+
+nav button{
+background:#555;
+color:white;
+border:none;
+padding:10px 15px;
+margin:5px;
+cursor:pointer;
+border-radius:5px;
+}
+
+nav button:hover{
+background:#777;
+}
+
+.section{
+display:none;
+padding:30px;
+}
+
+.active{
+display:block;
+}
+
+.card{
+width:320px;
+height:180px;
+margin:auto;
+background:white;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,0.2);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:20px;
+padding:15px;
+cursor:pointer;
+}
+
+.quizBox{
+background:white;
+padding:20px;
+max-width:600px;
+margin:auto;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,0.2);
+}
+
+.answer{
+display:block;
+margin:10px;
+padding:10px;
+background:#eee;
+border:none;
+cursor:pointer;
+border-radius:5px;
+}
+
+.answer:hover{
+background:#ddd;
+}
+
+#score{
+font-size:22px;
+margin-top:20px;
+}
+
+</style>
 </head>
+
 <body>
 
 <header>
-  <h1>Sephora ✨</h1>
-  <p>Gift card ideas by Parker Champlin</p>
+Human Body Systems Study Tool
 </header>
 
 <nav>
-  <button onclick="showSection('season', 'season')">Gift Card Season</button>
-  <button onclick="showSection('25', '25')">$25 Ideas</button>
-  <button onclick="showSection('50', '50')">$50 Ideas</button>
-  <button onclick="showSection('75', '75')">$75 Ideas</button>
+<button onclick="showSection('home')">Home</button>
+<button onclick="showSection('flashcards')">Flashcards</button>
+<button onclick="startQuiz()">Quiz</button>
 </nav>
 
-<section id="season" class="active">
-  <div class="card">
-    <h2>Gift Card Season 🎁</h2>
-    <ul>
-      <li><strong>Christmas:</strong> usually from Aunt Janice every year</li>
-      <li><strong>Birthday:</strong> sometimes given if it is on my list</li>
-    </ul>
-  </div>
-</section>
+<div id="home" class="section active">
 
-<section id="25">
-  <div class="card">
-    <h2>$25 Gift Card Gets 💖</h2>
-    <div class="list">
-      <div class="item"><p>Summer Fridays Pink Guava</p><p class="price">$24</p></div>
-      <div class="item"><p>Mini Tower 28 Mascara</p><p class="price">$12</p></div>
-      <div class="item"><p>Rhode Gel Serum</p><p class="price">$20</p></div>
-      <div class="item"><p>Sol de Janeiro 62 Deodorant</p><p class="price">$18</p></div>
-      <div class="item"><p>Matcha Laneige</p><p class="price">$18</p></div>
-      <div class="item"><p>Touchland Pure Lavender</p><p class="price">$10</p></div>
-      <div class="item"><p>Glossier Rose Lip Balm</p><p class="price">$14</p></div>
-    </div>
-  </div>
-</section>
+<h2>Chapters Covered</h2>
 
-<section id="50">
-  <div class="card">
-    <h2>$50 Gift Card Gets 💄</h2>
-    <div class="list">
-      <div class="item"><p>Rhode Pineapple Cleanser</p><p class="price">$30</p></div>
-      <div class="item"><p>Amika Hydro Rush Hair Mask</p><p class="price">$44</p></div>
-      <div class="item"><p>Fenty Eye Cream</p><p class="price">$42</p></div>
-      <div class="item"><p>Glow Recipe Toner</p><p class="price">$38</p></div>
-      <div class="item"><p>Drunk Elephant Jelly Cleanser</p><p class="price">$36</p></div>
-      <div class="item"><p>Drunk Elephant Face Oil</p><p class="price">$42</p></div>
-      <div class="item"><p>Sol de Janeiro 87 (Big Size)</p><p class="price">$39</p></div>
-      <div class="item"><p>Tower 28 Redness Relief Serum</p><p class="price">$34</p></div>
-    </div>
-  </div>
-</section>
+<p><b>Chapter 14:</b> Skeletal, Muscular, Integumentary Systems</p>
+<p><b>Chapter 15:</b> Digestive & Excretory Systems</p>
+<p><b>Chapter 16:</b> Respiratory, Circulatory, Lymphatic Systems</p>
+<p><b>Chapter 18:</b> Nervous & Endocrine Systems</p>
 
-<section id="75">
-  <div class="card">
-    <h2>$75 Gift Card Gets ✨</h2>
-    <div class="list">
-      <div class="item"><p>Drunk Elephant Barrier Cream</p><p class="price">$65</p></div>
-      <div class="item"><p>Drunk Elephant Vitamin C Serum</p><p class="price">$79</p></div>
-      <div class="item"><p>Tower 28 Daily Facial Spray</p><p class="price">$68</p></div>
-      <div class="item"><p>Mini Rhode Kit</p><p class="price">$68</p></div>
-      <div class="item"><p>Ole Henriksen Glow Cycle Set</p><p class="price">$62</p></div>
-      <div class="item"><p>Gisou Gift Set</p><p class="price">$69</p></div>
-      <div class="item"><p>Tatcha Mini Set</p><p class="price">$65</p></div>
-    </div>
-  </div>
-</section>
+<p>Use the flashcards or quiz to study.</p>
+
+</div>
+
+<div id="flashcards" class="section">
+
+<h2>Flashcards</h2>
+
+<div class="card" onclick="flipCard()" id="card">
+Click to Start
+</div>
+
+<br>
+
+<button onclick="nextCard()">Next Card</button>
+
+</div>
+
+<div id="quiz" class="section">
+
+<h2>Quiz Mode</h2>
+
+<div class="quizBox">
+
+<div id="question"></div>
+
+<div id="answers"></div>
+
+<div id="score"></div>
+
+</div>
+
+</div>
 
 <script>
-  const backgrounds = {
-    season: `repeating-linear-gradient(45deg,
-      #ffe4f0,
-      #ffe4f0 20px,
-      #ffb3d9 20px,
-      #ffb3d9 40px
-    )`,
-    '25': `radial-gradient(circle at 20% 20%, #ffd6e8 2px, transparent 3px),
-           radial-gradient(circle at 80% 30%, #ff9ecb 2px, transparent 3px),
-           radial-gradient(circle at 50% 70%, #ffb3d9 2px, transparent 3px),
-           linear-gradient(135deg, #fff0f7, #ffe0ec)`,
-    '50': 'linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb)',
-    '75': `repeating-linear-gradient(135deg,
-      #e6fff7,
-      #e6fff7 30px,
-      #d9fff1 30px,
-      #d9fff1 60px
-    )`
-  };
 
-  function showSection(id, bgKey){
-    document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    document.body.style.background = backgrounds[bgKey];
-  }
+function showSection(id){
+
+document.querySelectorAll(".section").forEach(sec=>{
+sec.classList.remove("active");
+});
+
+document.getElementById(id).classList.add("active");
+
+}
+
+let flashcards=[
+
+["Skeletal System","Body system made of bones that supports, protects organs, helps movement, stores minerals, and makes blood cells"],
+["Cartilage","Flexible tissue that cushions bones at joints"],
+["Joint","Place where two bones meet"],
+["Ligament","Connects bone to bone"],
+["Tendon","Connects muscle to bone"],
+["Voluntary Muscle","Muscles you control"],
+["Involuntary Muscle","Muscles that work automatically"],
+["Cardiac Muscle","Heart muscle that pumps blood"],
+["Smooth Muscle","Muscle in organs like stomach and intestines"],
+["Epidermis","Outer skin layer"],
+["Dermis","Middle skin layer with nerves and blood vessels"],
+["Melanin","Pigment that gives skin color and protects from UV"],
+["Calorie","Unit of energy in food"],
+["Protein","Builds and repairs tissues"],
+["Carbohydrates","Main energy source"],
+["Peristalsis","Wave-like movement pushing food"],
+["Villi","Tiny structures that absorb nutrients"],
+["Kidney","Filters waste from blood"],
+["Nephron","Tiny filtering unit in kidney"],
+["Alveoli","Tiny air sacs where gas exchange happens"],
+["Diaphragm","Breathing muscle under lungs"],
+["Atrium","Upper heart chamber"],
+["Ventricle","Lower heart chamber"],
+["Artery","Carries blood away from heart"],
+["Vein","Carries blood to heart"],
+["Capillary","Tiny vessels for exchange"],
+["Red Blood Cells","Carry oxygen"],
+["White Blood Cells","Fight infection"],
+["Platelets","Help blood clot"],
+["Neuron","Nerve cell that sends messages"],
+["Synapse","Gap between neurons"],
+["Cerebrum","Thinking and voluntary movement"],
+["Cerebellum","Balance and coordination"],
+["Brain Stem","Controls breathing and heartbeat"],
+["Hormone","Chemical messenger in bloodstream"]
+
+];
+
+let cardIndex=0;
+let flipped=false;
+
+function flipCard(){
+
+let card=document.getElementById("card");
+
+if(!flipped){
+
+card.innerText=flashcards[cardIndex][1];
+flipped=true;
+
+}else{
+
+card.innerText=flashcards[cardIndex][0];
+flipped=false;
+
+}
+
+}
+
+function nextCard(){
+
+cardIndex++;
+
+if(cardIndex>=flashcards.length){
+cardIndex=0;
+}
+
+flipped=false;
+
+document.getElementById("card").innerText=flashcards[cardIndex][0];
+
+}
+
+let questions=[
+
+{
+q:"Which muscle type moves bones?",
+a:["Skeletal","Smooth","Cardiac","Involuntary"],
+correct:0
+},
+
+{
+q:"What do ligaments connect?",
+a:["Muscle to bone","Bone to bone","Bone to cartilage","Muscle to muscle"],
+correct:1
+},
+
+{
+q:"Where does most digestion happen?",
+a:["Mouth","Small intestine","Large intestine","Esophagus"],
+correct:1
+},
+
+{
+q:"What structures absorb nutrients?",
+a:["Villi","Nephrons","Platelets","Bronchi"],
+correct:0
+},
+
+{
+q:"Where does gas exchange occur?",
+a:["Bronchi","Trachea","Alveoli","Larynx"],
+correct:2
+},
+
+{
+q:"How many chambers does the heart have?",
+a:["2","3","4","5"],
+correct:2
+},
+
+{
+q:"Which blood cells carry oxygen?",
+a:["White","Red","Platelets","Plasma"],
+correct:1
+},
+
+{
+q:"What is the basic unit of the nervous system?",
+a:["Neuron","Hormone","Synapse","Axon"],
+correct:0
+},
+
+{
+q:"Which brain part controls balance?",
+a:["Cerebrum","Cerebellum","Brain stem","Spinal cord"],
+correct:1
+}
+
+];
+
+let current=0;
+let score=0;
+
+function startQuiz(){
+
+showSection("quiz");
+
+current=0;
+score=0;
+
+questions.sort(()=>Math.random()-0.5);
+
+loadQuestion();
+
+}
+
+function loadQuestion(){
+
+if(current>=questions.length){
+
+document.getElementById("question").innerHTML="Quiz Finished!";
+document.getElementById("answers").innerHTML="";
+document.getElementById("score").innerHTML="Final Score: "+score+"/"+questions.length;
+
+return;
+
+}
+
+let q=questions[current];
+
+document.getElementById("question").innerHTML="<h3>"+q.q+"</h3>";
+
+let answersHTML="";
+
+q.a.forEach((ans,i)=>{
+
+answersHTML+=`<button class="answer" onclick="answer(${i})">${ans}</button>`;
+
+});
+
+document.getElementById("answers").innerHTML=answersHTML;
+
+}
+
+function answer(i){
+
+let q=questions[current];
+
+if(i===q.correct){
+
+score++;
+
+document.body.style.background="#c8f7c5";
+
+}else{
+
+score--;
+
+document.body.style.background="#f7c5c5";
+
+}
+
+current++;
+
+setTimeout(()=>{
+
+document.body.style.background="#f4f6fb";
+loadQuestion();
+
+},700);
+
+}
+
 </script>
 
 </body>
